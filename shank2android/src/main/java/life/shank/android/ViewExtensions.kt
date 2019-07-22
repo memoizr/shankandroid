@@ -77,6 +77,8 @@ private fun View.findScopedOrAutoScopedParentView(): View? {
 
 private fun FragmentManager.findScopedOrAutoScopedFragmentClosestToTheView(view: View): Fragment? {
     return fragments.firstOrNull {
+        if (!it.isAdded) return@firstOrNull false
+
         val fragment = it.childFragmentManager.findScopedOrAutoScopedFragmentClosestToTheView(view)
         if (fragment != null) return fragment
 
